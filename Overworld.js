@@ -13,25 +13,29 @@ class Overworld {
       //Establish the camera personal
       const cameraPerson = this.map.gameObjects.hero;
 
-      Object.values(this.map.gameObjects).forEach(obj => {
+      Object.values(this.map.gameObjects).forEach((obj) => {
         obj.update({
           arrow: this.directionInput.direction,
           map: this.map,
         });
-      })
-      
+      });
+
       this.map.drawLowerImage(this.ctx, cameraPerson);
 
-      Object.values(this.map.gameObjects).forEach(obj => {
-        obj.sprite.draw(this.ctx, cameraPerson);
-      })
+      Object.values(this.map.gameObjects)
+        .sort((a, b) => {
+          return a.y - b.y;
+        })
+        .forEach((obj) => {
+          obj.sprite.draw(this.ctx, cameraPerson);
+        });
 
       this.map.drawUpperImage(this.ctx, cameraPerson);
 
       requestAnimationFrame(() => {
         step();
-      })
-    }
+      });
+    };
 
     step();
   }
@@ -45,5 +49,13 @@ class Overworld {
     this.directionInput.init();
 
     this.startGameLoop();
+
+    this.map.startCutscene([
+      { who: 'hero', type: 'walk', direction: 'down' },
+      { who: 'hero', type: 'walk', direction: 'down' },
+      { who: 'npc1', type: 'walk', direction: 'left' },
+      { who: 'npc1', type: 'walk', direction: 'left' },
+      { who: 'npc1', type: 'stand', direction: 'up', time: 800},
+    ]);
   }
 }
