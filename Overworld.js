@@ -53,9 +53,11 @@ class Overworld {
     this.map.startCutscene([
       { who: 'hero', type: 'walk', direction: 'down' },
       { who: 'hero', type: 'walk', direction: 'down' },
+      { who: 'npc1', type: 'walk', direction: 'up' },
       { who: 'npc1', type: 'walk', direction: 'left' },
-      { who: 'npc1', type: 'walk', direction: 'left' },
-      { who: 'npc1', type: 'stand', direction: 'up', time: 800},
+      { who: 'hero', type: 'stand', direction: 'right', time: 200 },
+      { type: 'textMessage', text: 'HELLO THERE'}
+     
     ]);
   }
 }

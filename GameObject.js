@@ -1,6 +1,8 @@
 class GameObject {
   constructor(config) {
     this.id = null;
+    this.isStanding = false;
+    
     this.isMounted = false;
     this.x = config.x || 0;
     this.y = config.y || 0;
@@ -25,7 +27,7 @@ class GameObject {
   update() {}
 
   async doBehaviorEvent(map) {
-    if (map.isCutscenePlaying || this.behaviorLoop.length === 0) {
+    if (map.isCutscenePlaying || this.behaviorLoop.length === 0 || this.isStanding) {
       return;
     }
 
