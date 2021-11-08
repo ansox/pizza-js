@@ -31,5 +31,16 @@ const utils = {
       });
 
       document.dispatchEvent(event);
+  }, 
+
+  oppoisteDirection(direction) {
+    const opposite = {
+      up: 'down',
+      down: 'up',
+      left: 'right',
+      right: 'left'
+    }
+
+    return opposite[direction];
   }
 }
