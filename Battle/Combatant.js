@@ -6,6 +6,19 @@ class Combatant {
     this.battle = battle;
   }
 
+  get xpPercent() {
+    return this.xp / this.maxXp * 100;
+  }
+
+  get hpPercent() {
+    const percent = this.hp / this.maxHp * 100;
+    return percent > 0 ? percent : 0;
+  }
+
+  get isActive() {
+    return this.battle.activeCombatants[this.team] === this.id;
+  }
+
   createElement() {
     this.hudElement = document.createElement('div');
     this.hudElement.classList.add('Combatant');
@@ -22,16 +35,43 @@ class Combatant {
         <rect x=0 y=0 width="0%" height=1 fill="#82ff71" />
         <rect x=0 y=1 width="0%" height=2 fill="#3ef126" />
       </svg>
-      <svg viewBox="0 0 26 3" class="Combatant_xp_container">
+      <svg viewBox="0 0 26 2" class="Combatant_xp_container">
         <rect x=0 y=0 width="0%" height=1 fill="#ffd76a" />
         <rect x=0 y=1 width="0%" height=2 fill="#ffc934" />
       </svg>
       <p class="Combatant_status"></p>
     `;
+
+    this.pizzaElement = document.createElement('img');
+    this.pizzaElement.classList.add('Pizza');
+    this.pizzaElement.setAttribute('src', this.src);
+    this.pizzaElement.setAttribute('alt', this.name);
+    this.pizzaElement.setAttribute('data-team', this.team);
+
+    this.hpFills = this.hudElement.querySelectorAll('.Combatant_life_container > rect');
+    this.xpFills = this.hudElement.querySelectorAll('.Combatant_xp_container > rect');
+  }
+
+  update(changes={}) {
+    Object.keys(changes).forEach(key => {
+      this[key] = changes[key];
+    });
+
+    this.hudElement.setAttribute('data-active', this.isActive);
+
+    this.hpFills.forEach(rect => rect.style.width = `${this.hpPercent}%`);
+    this.xpFills.forEach(rect => rect.style.width = `${this.xpPercent}%`);
+
+    this.pizzaElement.setAttribute('data-active', this.isActive);
+
+    this.hudElement.querySelector('.Combatant_level').innerText = this.level;
+    
   }
 
   init(container) {
     this.createElement();
     container.appendChild(this.hudElement);
+    container.appendChild(this.pizzaElement);
+    this.update();
   }
 }

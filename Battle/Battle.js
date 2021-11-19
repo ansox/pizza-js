@@ -6,7 +6,8 @@ class Battle {
         team: 'player',
         hp: 50, 
         maxHp: 50, 
-        xp: 0, 
+        maxXp: 100,
+        xp: 80, 
         level: 1, 
         status: null
       }, this),
@@ -15,7 +16,8 @@ class Battle {
         team: 'enemy',
         hp: 50, 
         maxHp: 50, 
-        xp: 0, 
+        maxXp: 100,
+        xp: 20, 
         level: 1, 
         status: null
       }, this),
@@ -24,10 +26,16 @@ class Battle {
         team: 'enemy',
         hp: 50, 
         maxHp: 50, 
+        maxXp: 100,
         xp: 0, 
         level: 1, 
         status: null
       }, this)
+    }
+
+    this.activeCombatants = {
+      player: 'player1',
+      enemy: 'enemy1'
     }
   }
 
