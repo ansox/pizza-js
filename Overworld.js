@@ -79,6 +79,7 @@ class Overworld {
       // { who: 'hero', type: 'stand', direction: 'right', time: 200 },
       // { type: 'textMessage', text: 'This is the very first message! Really.'}
       // { type: 'changeMap', map: "Kitchen"}
+      { type: 'battle' }
 
     ]);
   }
